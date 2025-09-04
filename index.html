@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Infinity Realms Store</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&display=swap">
+  <link rel="shortcut icon" href="asset/Icons-svg/favicon.ico" type="image/x-icon">
+  <style>
+    :root{
+      --primary-color:#212121;
+      --secondary-color:#2e2e2e;
+      --text-color:#f4f3ee;
+      --accent:#0b6cff;
+      --accent-2:#1e90ff;
+      --primary-font:'Inter', sans-serif;
+    }
+
+    *{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth;user-select:none}
+    body{font-family:var(--primary-font);background-color:var(--primary-color);color:var(--text-color);overflow-x:hidden}
+
+    /* Navbar */
+    header.navbar{
+      backdrop-filter:blur(90px);
+      background:rgba(33,33,33,0.086);
+      box-shadow:0 4px 30px rgba(0,0,0,0.1);
+      border:1px solid rgba(255,255,255,0.3);
+      position:fixed;left:0;right:0;margin:15px auto;z-index:1000;
+      display:flex;justify-content:center;align-items:center;
+      width:80%;height:60px;border-radius:50px;padding:0 25px;
+    }
+    header img{filter:drop-shadow(2px 2px 4px rgba(0,0,0,0.7))}
+    .right,.left,.middle{text-shadow:2px 2px 4px rgba(0,0,0,0.7)}
+    .navbar .right{width:200px;display:flex;justify-content:flex-end}
+    .navbar .left{width:200px;display:flex;align-items:center}
+    .left .nav-logo,.left .nav-title{display:flex;align-items:center;margin:0 5px;font-size:20px;font-weight:900}
+    .navbar .nav-logo{width:30px;height:30px}
+    .navbar .middle{flex-grow:1;display:flex;justify-content:center;align-items:center}
+    .middle div{margin:0 15px;cursor:pointer;transition:transform 0.3s ease}
+    .middle div:hover{transform:scale(1.05);font-weight:600;text-decoration:underline;text-underline-offset:1px;text-decoration-thickness:2px}
+    .middle div:active{transform:scale(0.95)}
+    .middle .links .vote-ico{width:20px;height:20px;margin-right:5px;position:relative;top:4px}
+    .middle a{
+      text-decoration: none;
+      color:  #fff;
+    }
+     .middle a:hover{transform:scale(1.05);font-weight:600;text-decoration:underline;text-underline-offset:1px;text-decoration-thickness:2px}
+     .terms_and_policies{
+      text-decoration: none;
+      color:  #fff;
+      background-color: transparent ;
+     }
+     .terms_and_policies:hover{transform:scale(1.05);font-weight:600;text-decoration:underline;text-underline-offset:1px;text-decoration-thickness:2px}
+    .navbar .discord-icon{width:30px;height:30px;cursor:pointer;transition:ease-in-out 0.1s}
+    .navbar .discord-icon:hover{transform:scale(1.2)}
+    .navbar .discord-icon:active{transform:scale(1)}
+
+    /* Hero */
+    .hero-main{display:flex;justify-content:center;align-items:center;text-align:center;padding:120px 20px 60px}
+    .hero-text-main{font-size:32px;font-weight:900;margin-bottom:20px;color:#fff;text-shadow:2px 2px 6px rgba(0,0,0,0.5)}
+    .hero-text-description{font-size:16px;max-width:700px;margin:0 auto;color:#ddd;line-height:1.6}
+
+    /* Free Fire Diamonds Section */
+    .hero{margin:40px auto;background:#2e2e2e;border-radius:16px;box-shadow:0 12px 30px rgba(0,0,0,0.3);overflow:hidden;display:grid;grid-template-columns:1fr 1fr;align-items:center;max-width:1100px}
+    .hero-left{padding:40px;display:flex;align-items:center;justify-content:center}
+    .diamond-svg{width:220px;height:220px}
+    .hero-right{padding:40px}
+    .hero-right h1{font-size:36px;margin-bottom:16px;color:#fff}
+    .hero-right p{color:#ccc;line-height:1.6;margin-bottom:24px}
+    .price-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+    .price-box{background:#fff;color:#000;padding:12px 18px;border-radius:10px;min-width:120px;text-align:center}
+    .price-box small{display:block;font-size:12px;color:#555}
+    .price-box strong{display:block;font-size:18px;margin-top:6px}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 20px;border-radius:12px;border:0;font-weight:700;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;cursor:pointer;box-shadow:0 8px 20px rgba(11,108,255,0.18);margin-right:10px}
+    .btn.secondary{background:transparent;color:var(--accent);border:1px solid rgba(11,108,255,0.3);box-shadow:none}
+
+    /* Responsive */
+    @media(max-width:880px){
+      .hero{grid-template-columns:1fr}
+      .hero-left,.hero-right{padding:28px;text-align:center}
+      .hero-right h1{font-size:28px}
+      .hero-text-main{font-size:24px}
+    }
+    @media(max-width:640px){
+      header.navbar{width:95%;height:auto;flex-wrap:wrap;justify-content:space-between;padding:10px 20px}
+      .navbar .left,.navbar .right{width:auto}
+      .navbar .middle{flex-basis:100%;justify-content:center;margin-top:10px}
+      .hero-text-description{font-size:14px}
+    }
+/* Mobile Navbar */
+.hamburger {
+  display: none;
+  font-size: 26px;
+  cursor: pointer;
+  color: var(--text-color);
+  user-select: none;
+}
+
+@media(max-width:640px){
+  .hamburger {
+    display: block;
+  }
+
+  .navbar {
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    position: relative; /* so dropdown stays inside navbar */
+  }
+
+  .middle {
+    display: none; /* hide menu by default on mobile */
+    flex-direction: column;
+    background: var(--secondary-color);
+    position: absolute;
+    top: 70px; 
+    left: 0; 
+    right: 0;
+    padding: 15px;
+    border-radius: 12px;
+    z-index: 999;
+  }
+
+  .middle.show {
+    display: flex; /* show only when toggled */
+  }
+
+  .middle .links {
+    margin: 12px 0;
+    text-align: center;
+  }
+}
+/* Default: show menu on desktop */
+.middle {
+  display: flex;
+}
+
+/* Mobile behavior */
+.hamburger {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: var(--text-color);
+  user-select: none;
+}
+
+@media (max-width: 640px) {
+  .hamburger {
+    display: block;
+  }
+
+  .middle {
+    display: none !important; /* force hidden on mobile */
+    flex-direction: column;
+    background: var(--secondary-color);
+    position: absolute;
+    top: 70px;
+    left: 0;
+    right: 0;
+    padding: 15px;
+    border-radius: 12px;
+    z-index: 1000;
+  }
+
+  .middle.show {
+    display: flex !important; /* show when toggled */
+  }
+
+  .middle .links {
+    margin: 12px 0;
+    text-align: center;
+  }
+}
+/*------------------------policy--------------------------------*/
+.policy-section {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #2e2e2e;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+  color: var(--text-color);
+  font-family: var(--primary-font, 'Inter', sans-serif);
+  line-height: 1.7;
+  animation: fadeIn 0.6s ease;
+}
+
+.policy-section h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: var(--accent);
+  text-align: center;
+}
+
+.policy-section h3 {
+  font-size: 18px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: var(--accent-2);
+}
+
+.policy-section p {
+  margin-bottom: 15px;
+  color: #ddd;
+  font-size: 15px;
+}
+
+.policy-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 15px;
+}
+
+.policy-list li {
+  margin: 10px 0;
+  padding: 12px 15px;
+  background: rgba(255, 255, 255, 0.05);
+  border-left: 4px solid var(--accent);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+}
+
+.policy-list li span {
+  display: inline-block;
+  margin-right: 10px;
+  font-weight: 700;
+  color: var(--accent-2);
+}
+
+.policy-footer {
+  font-weight: 600;
+  color: #9be0ff;
+  text-align: center;
+  margin-top: 20px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+
+}
+/* ---------------Footer_Section_Start------------------ */
+footer{
+
+    width: 90%;
+    padding-left:  100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    top: 3440px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+
+
+}
+
+footer img{
+    height: 40px;
+    cursor: pointer;
+}
+
+footer img:hover{
+    transform: scale(1.2);
+    transition: ease-in-out 0.1s;
+}
+/* Popup Overlay */
+.popup {
+  display: none; 
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 2000;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Popup Box */
+.popup-content {
+  background: var(--secondary-color);
+  padding: 20px;
+  border-radius: 12px;
+  max-width: 400px;
+  width: 90%;
+  text-align: left;
+  color: var(--text-color);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+  position: relative;
+}
+
+/* Close Button */
+.close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Form Styling */
+.popup-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.popup-content input, 
+.popup-content select {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+/* How It Works Popup */
+#popup1 {
+  display: none; 
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 2000;
+  justify-content: center;
+  align-items: center;
+}
+
+#popup1.show {
+  display: flex;
+}
+
+#popup1 .popup-content {
+  background: var(--secondary-color);
+  padding: 20px;
+  border-radius: 12px;
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+  color: var(--text-color);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+  position: relative;
+  animation: popupFade 0.25s ease;
+}
+
+#popup1 .close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+@keyframes popupFade {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+/* Make popup overlay scrollable */
+.popup,
+#popup1 {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 2000;
+  justify-content: center;
+  align-items: flex-start; /* allow scrolling from top */
+  overflow-y: auto; /* enable scroll */
+  padding: 40px 0; /* spacing for scroll */
+}
+
+/* Popup box stays centered with margin */
+.popup-content {
+  background: var(--secondary-color);
+  padding: 20px;
+  border-radius: 12px;
+  max-width: 500px;
+  width: 90%;
+  margin: auto; /* ensures it stays centered while scrolling */
+  color: var(--text-color);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+  position: relative;
+}
+/* Terms & Conditions Popup */
+#popup2 {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 2000;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-y: auto;
+  padding: 40px 0;
+}
+
+#popup2.show {
+  display: flex;
+}
+
+#popup2 .popup-content {
+  background: var(--secondary-color);
+  padding: 20px;
+  border-radius: 12px;
+  max-width: 700px;
+  width: 90%;
+  margin: auto;
+  text-align: left;
+  color: var(--text-color);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+  position: relative;
+  animation: popupFade 0.25s ease;
+}
+
+#popup2 .close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+
+
+  </style>
+</head>
+<body>
+  <!-- Inside your header.navbar -->
+<header class="navbar">
+  <div class="left">
+    <img class="nav-logo" src="asset/Icons-svg/favicon.ico" alt="logo">
+    <div class="nav-title">Infinity Realms</div>
+  </div>
+
+  <!-- Hamburger Icon -->
+  <div class="hamburger" onclick="toggleMenu()">☰</div>
+
+  <!-- Nav Links -->
+  <div class="middle" id="navLinks">
+    <div class="links">Home</div>
+    <div class="links">Shop</div>
+    <div class="links"><img src="asset/Icons-svg/plus.ico" class="vote-ico">Vote</div>
+    <a href="index.html">FF Topup</a>
+  </div>
+
+  <div class="right">
+    <a href="https://discord.gg/HwkHpM4C" target="_blank" rel="noopener noreferrer">
+      <img class="discord-icon" src="asset/Icons-svg/discord-1.ico" alt="discord">
+    </a>
+  </div>
+</header>
+
+
+
+
+  <div class="hero-main">
+    <div class="hero-text">
+      <p class="hero-text-main">FREE FIRE UID DIAMOND TOPUP</p>
+      <p class="hero-text-description">INFINITY STORE FURNISHES YOU WITH A MORE SECURE AND DEPENDABLE MEANS OF ACQUIRING YOUR FREE FIRE DIAMONDS.</p>
+    </div>
+  </div>
+
+  <main class="hero">
+    <div class="hero-left">
+      <svg class="diamond-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="g1" x1="0" x2="1">
+            <stop offset="0" stop-color="#9be0ff"/>
+            <stop offset="1" stop-color="#46a9ff"/>
+          </linearGradient>
+        </defs>
+        <g transform="translate(100,100)">
+          <path d="M-40 -20 L0 -70 L40 -20 L0 40 Z" fill="url(#g1)" stroke="#0b5fcf" stroke-width="3"/>
+        </g>
+      </svg>
+    </div>
+    <div class="hero-right">
+      <h1>Fast & Secure Free Fire Diamonds</h1>
+      <p>Buy diamonds instantly with secure payment options. Low prices, fast delivery, and 24/7 support.</p>
+      <div class="price-row">
+        <div class="price-box"><small>Starter</small><strong>100 Diamonds</strong><div>₹ 95</div></div>
+        <div class="price-box"><small>Popular</small><strong>240 Diamonds</strong><div>₹ 190</div></div>
+        <div class="price-box"><small>Value</small><strong>10120 Diamonds</strong><div>₹ 7350</div></div>
+      </div>
+      <button id="openPopup" class="btn">Buy Now</button>
+      <!-- Popup Modal -->
+<div id="popup" class="popup">
+  <div class="popup-content">
+    <span id="closePopup" class="close">&times;</span>
+    <h2>Purchase Diamonds</h2>
+
+   <form action="https://formspree.io/f/mandleeo" method="POST">
+  <label for="item">Select Package:</label>
+  <select id="item" name="item" required>
+  <option value="">-- Choose a package --</option>
+        <option value="100 Diamonds - ₹95">100 Diamonds - ₹95</option>
+        <option value="240 Diamonds - ₹190">240 Diamonds - ₹190</option>
+        <option value="355 Diamonds - ₹280">355 Diamonds - ₹280</option>
+        
+        <option value="480 Diamonds - ₹375">480 Diamonds - ₹375</option>
+        <option value="610 Diamonds - ₹480">610 Diamonds - ₹480</option>
+        <option value="850 Diamonds - ₹649">850 Diamonds - ₹649</option>
+        <option value="1240 Diamonds - ₹930">1240 Diamonds - ₹930</option>
+        <option value="1850 Diamonds - ₹1390">1850 Diamonds - ₹1390</option>
+        <option value="2530 Diamonds - ₹1850">2530 Diamonds - ₹1850</option>
+        <option value="3770 Diamonds - ₹2750">3770 Diamonds - ₹2750</option>
+        <option value="4380 Diamonds - ₹3210">4380 Diamonds - ₹3210 </option>
+        <option value="5060 Diamonds - ₹3669">5060 Diamonds - ₹3669</option>
+        <option value="5670 Diamonds - ₹4140">5670 Diamonds - ₹4140</option>
+        <option value="10120 Diamonds - ₹7350">10120 Diamonds - ₹7350</option>
+        <option value="Weekly - ₹190">Weekly - ₹190</option>
+        <option value="Monthly - ₹940">Monthly - ₹940</option>
+        <option value="Level up pass - ₹610">Level up pass - ₹610 </option>
+    
+  </select>
+
+  
+      <label for="uid">Free Fire UID:</label>
+      <input type="text" id="uid" name="uid" required placeholder="Enter your UID">
+
+      <label for="txn">Transaction Number:</label>
+      <input type="text" id="txn" name="txn" required placeholder="Enter Transaction No.">
+      <p>Note: 1. PUT YOUR UID IN REMARKS.
+        <br>2.ADD PAYMENT METHOD IN UID SECTION . Eg. 637644925 | KHALTI</p>
+      <img src="./asset/images/esewa.jpg">
+      <br>  <p> Esewa | Khalti : 9860383070</p>   
+    <button type="submit" class="btn">Submit</button>
+</form>
+
+  </div>
+</div>
+<button id="openPopup1" class="btn">How It Works</button>
+<div id="popup1" class="popup">
+  <div class="popup-content">
+    <h2>How It Works</h2>
+    <br>
+    <img src="./asset/images/howitworks.png" style="max-width:100%">
+    
+
+    <section class="policy-section">
+  <h2>Payment and Order Confirmation Policy</h2>
+  <p>
+    Once a customer completes a payment to our designated bank account, our system instantly receives a notification of the transaction. After securely verifying and confirming the payment, the order is officially approved.
+  </p>
+  <p>
+    Following confirmation, the purchased product will be processed without delay and prepared for delivery to the customer.
+  </p>
+
+  <h3>Process Overview:</h3>
+  <ul class="policy-list">
+    <li><span>1.</span> The customer makes a payment to our bank.</li>
+    <li><span>2.</span> We verify and confirm the payment.</li>
+    <li><span>3.</span> The product is processed and delivered to the customer.</li>
+  </ul>
+
+  <p class="policy-footer">
+    ✅ This process ensures secure transactions and timely delivery of all confirmed orders.
+  </p>
+</section>
+
+
+    <button type="button" class="btn">Okay</button>
+  </div>
+</div>
+<!-- Terms & Conditions Popup -->
+<div id="popup2" class="popup">
+  <div class="popup-content">
+    <span class="close">&times;</span>
+    <h2>Terms & Conditions</h2>
+    <section class="policy-section">
+      <h3>1. Payment Policy</h3>
+      <p>
+        All payments must be completed before the delivery of any product. Once the payment is received and verified, the order will be processed immediately.
+      </p>
+
+      <h3>2. Delivery Policy</h3>
+      <p>
+        Orders are usually fulfilled within 5–15 minutes. In rare cases, it may take up to 24 hours due to system delays or verification requirements.
+      </p>
+
+      <h3>3. Refund Policy</h3>
+      <p>
+        Refunds are only issued if the product cannot be delivered due to a technical error on our side. No refunds will be given for wrong UID or incorrect payment details provided by the customer.
+      </p>
+
+      <h3>4. User Responsibility</h3>
+      <p>
+        Customers must ensure that their Free Fire UID and transaction number are entered correctly. Infinity Realms is not responsible for losses due to incorrect details.
+      </p>
+
+      <h3>5. Support</h3>
+      <p>
+        For assistance, please contact us at <strong>9860383070</strong> or <strong>sandeshmaharjan18@gmail.com</strong>.
+      </p>
+
+      <p class="policy-footer">
+        ✅ By purchasing from Infinity Realms, you agree to these Terms & Conditions.
+      </p>
+    </section>
+    <button type="button" class="btn" id="closeTermsBtn">Okay</button>
+  </div>
+</div>
+
+
+      <br> <p> Contacts: <br>9860383070 | sandeshmaharjan18@gmail.com </p>
+      <br>  <button class="terms_and_policies">Terms and Condition</button>
+    </div>
+    
+  </main>
+  <footer>
+        <p>© 2025 Infinity Realms. All Rights Reserved.</p>
+        <a href="https://discord.gg/HwkHpM4C" target="_blank" rel="noopener noreferrer"><img src="asset/Icons-svg/discord.ico"></a>
+    </footer>
+  <script>
+  function toggleMenu() {
+    const nav = document.getElementById("navLinks");
+    nav.classList.toggle("show");
+  }
+  const openPopup = document.getElementById("openPopup");
+  const closePopup = document.getElementById("closePopup");
+  const popup = document.getElementById("popup");
+  const form = document.getElementById("purchaseForm");
+
+  // Open popup
+  openPopup.addEventListener("click", () => {
+    popup.style.display = "flex";
+  });
+
+  // Close popup
+  closePopup.addEventListener("click", () => {
+    popup.style.display = "none";
+  });
+
+  // Close popup when clicking outside content
+  window.addEventListener("click", (e) => {
+    if (e.target === popup) {
+      popup.style.display = "none";
+    }
+  });
+
+  // Handle form submit
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const item = document.getElementById("item").value;
+    const uid = document.getElementById("uid").value;
+    const txn = document.getElementById("txn").value;
+
+    // For now, just log (replace with AJAX/email/DB logic)
+    console.log("Order Received:");
+    console.log("Item:", item);
+    console.log("UID:", uid);
+    console.log("Transaction No:", txn);
+
+    alert("Your purchase request has been submitted! If you dont get your order even after 15mins. Contact: 9860383070");
+
+    // Reset and close popup
+    form.reset();
+    popup.style.display = "none";
+  });
+  // How It Works popup
+const openPopup1 = document.getElementById("openPopup1");
+const popup1 = document.getElementById("popup1");
+const closePopup1 = document.createElement("span");
+
+// Create close button dynamically
+closePopup1.innerHTML = "&times;";
+closePopup1.className = "close";
+popup1.querySelector(".popup-content").prepend(closePopup1);
+
+// Open
+openPopup1.addEventListener("click", () => {
+  popup1.classList.add("show");
+});
+
+// Close with X
+closePopup1.addEventListener("click", () => {
+  popup1.classList.remove("show");
+});
+
+// Close when clicking outside
+window.addEventListener("click", (e) => {
+  if (e.target === popup1) {
+    popup1.classList.remove("show");
+  }
+});
+
+// Close with "Okay" button
+const okayBtn = popup1.querySelector("button");
+if (okayBtn) {
+  okayBtn.addEventListener("click", () => {
+    popup1.classList.remove("show");
+  });
+}
+// Terms & Conditions popup
+const termsBtn = document.querySelector(".terms_and_policies");
+const popup2 = document.getElementById("popup2");
+const closeBtn2 = popup2.querySelector(".close");
+const closeTermsBtn = document.getElementById("closeTermsBtn");
+
+// Open popup
+termsBtn.addEventListener("click", () => {
+  popup2.classList.add("show");
+});
+
+// Close with X
+closeBtn2.addEventListener("click", () => {
+  popup2.classList.remove("show");
+});
+
+// Close with Okay button
+closeTermsBtn.addEventListener("click", () => {
+  popup2.classList.remove("show");
+});
+
+// Close when clicking outside
+window.addEventListener("click", (e) => {
+  if (e.target === popup2) {
+    popup2.classList.remove("show");
+  }
+});
+
+
+</script>
+
+</body>
+
+</html>
