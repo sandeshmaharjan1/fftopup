@@ -489,6 +489,8 @@ footer img:hover{
   <div class="popup-content">
     <span id="closePopup" class="close">&times;</span>
     <h2>Purchase Diamonds</h2>
+
+
       <form id="purchaseForm" action="https://formspree.io/f/mandleeo" method="POST">
 
   <label for="item">Select Package:</label>
@@ -642,25 +644,10 @@ footer img:hover{
   });
 
   // Handle form submit
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    const item = document.getElementById("item").value;
-    const uid = document.getElementById("uid").value;
-    const txn = document.getElementById("txn").value;
-
-    // For now, just log (replace with AJAX/email/DB logic)
-    console.log("Order Received:");
-    console.log("Item:", item);
-    console.log("UID:", uid);
-    console.log("Transaction No:", txn);
-
-    alert("Your purchase request has been submitted! If you dont get your order even after 15mins. Contact: 9860383070");
-
-    // Reset and close popup
-    form.reset();
-    popup.style.display = "none";
-  });
+form.addEventListener("submit", (e) => {
+  // Let Formspree handle sending, but show alert after submit
+  alert("Your purchase request has been submitted! If you don’t get your order even after 15 mins, contact: 9860383070");
+});
   // How It Works popup
 const openPopup1 = document.getElementById("openPopup1");
 const popup1 = document.getElementById("popup1");
@@ -714,6 +701,9 @@ window.addEventListener("click", (e) => {
   if (e.target === popup2) {
     popup2.classList.remove("show");
   }
+});
+closePopup.addEventListener("click", () => {
+  popup.style.display = "none";
 });
 
 
