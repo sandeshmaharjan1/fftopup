@@ -489,15 +489,14 @@ footer img:hover{
   <div class="popup-content">
     <span id="closePopup" class="close">&times;</span>
     <h2>Purchase Diamonds</h2>
+      <form id="purchaseForm" action="https://formspree.io/f/mandleeo" method="POST">
 
-   <form action="https://formspree.io/f/mandleeo" method="POST">
   <label for="item">Select Package:</label>
   <select id="item" name="item" required>
   <option value="">-- Choose a package --</option>
         <option value="100 Diamonds - ₹95">100 Diamonds - ₹95</option>
         <option value="240 Diamonds - ₹190">240 Diamonds - ₹190</option>
         <option value="355 Diamonds - ₹280">355 Diamonds - ₹280</option>
-        
         <option value="480 Diamonds - ₹375">480 Diamonds - ₹375</option>
         <option value="610 Diamonds - ₹480">610 Diamonds - ₹480</option>
         <option value="850 Diamonds - ₹649">850 Diamonds - ₹649</option>
@@ -528,6 +527,8 @@ footer img:hover{
     <button type="submit" class="btn">Submit</button>
 </form>
 
+
+    
   </div>
 </div>
 <button id="openPopup1" class="btn">How It Works</button>
@@ -604,7 +605,8 @@ footer img:hover{
 
 
       <br> <p> Contacts: <br>9860383070 | sandeshmaharjan18@gmail.com </p>
-      <br>  <button class="terms_and_policies">Terms and Condition</button>
+      <br>  <button id="openTermsBtn" class="terms_and_policies">Terms and Condition</button>
+
     </div>
     
   </main>
@@ -693,23 +695,16 @@ if (okayBtn) {
     popup1.classList.remove("show");
   });
 }
-// Terms & Conditions popup
-const termsBtn = document.querySelector(".terms_and_policies");
+const openTermsBtn = document.getElementById("openTermsBtn");
 const popup2 = document.getElementById("popup2");
-const closeBtn2 = popup2.querySelector(".close");
 const closeTermsBtn = document.getElementById("closeTermsBtn");
 
-// Open popup
-termsBtn.addEventListener("click", () => {
+// Open
+openTermsBtn.addEventListener("click", () => {
   popup2.classList.add("show");
 });
 
-// Close with X
-closeBtn2.addEventListener("click", () => {
-  popup2.classList.remove("show");
-});
-
-// Close with Okay button
+// Close
 closeTermsBtn.addEventListener("click", () => {
   popup2.classList.remove("show");
 });
@@ -720,6 +715,7 @@ window.addEventListener("click", (e) => {
     popup2.classList.remove("show");
   }
 });
+
 
 
 </script>
